@@ -128,7 +128,8 @@ def _format_state(state, validate=True):
                 state = DensityMatrix(state)
     if not isinstance(state, (Statevector, DensityMatrix)):
         raise QiskitError("Input is not a quantum state")
-    if validate and not state.is_valid():
+    # Changed atol to speed up computation
+    if validate and not state.is_valid(atol=1e-6):
         raise QiskitError("Input quantum state is not a valid")
     return state
 
